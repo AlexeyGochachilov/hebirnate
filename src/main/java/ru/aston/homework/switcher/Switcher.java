@@ -3,7 +3,7 @@ package ru.aston.homework.switcher;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ru.aston.homework.dao.UserDAO;
-import ru.aston.homework.entity.UserDTO;
+import ru.aston.homework.dto.UserDTO;
 import ru.aston.homework.service.MapperUserDtoToUserEntity;
 import ru.aston.homework.service.Service;
 import ru.aston.homework.service.UserService;

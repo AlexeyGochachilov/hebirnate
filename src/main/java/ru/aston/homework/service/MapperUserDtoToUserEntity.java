@@ -1,6 +1,6 @@
 package ru.aston.homework.service;
 
-import ru.aston.homework.entity.UserDTO;
+import ru.aston.homework.dto.UserDTO;
 import ru.aston.homework.entity.UserEntity;
 
 public class MapperUserDtoToUserEntity implements Mapper<UserEntity, UserDTO> {

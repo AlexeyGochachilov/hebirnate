@@ -1,7 +1,7 @@
 package ru.aston.homework.service;
 
 import ru.aston.homework.dao.DAO;
-import ru.aston.homework.entity.UserDTO;
+import ru.aston.homework.dto.UserDTO;
 import ru.aston.homework.entity.UserEntity;
 
 import java.util.ArrayList;

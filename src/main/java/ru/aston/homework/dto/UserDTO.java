@@ -1,4 +1,4 @@
-package ru.aston.homework.entity;
+package ru.aston.homework.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
