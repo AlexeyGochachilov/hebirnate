@@ -26,7 +26,11 @@ public class Main {
     public static void selectCommand(BufferedReader reader) throws IOException {
         Switcher switcher = new Switcher();
         while (switcher.isRunning()) {
-            System.out.println("Input command (find, save, delete, update, exit for exit): ");
+            System.out.println(
+                    """
+                       Input command: find, create, delete, update for work with user
+                                      show for show all entities
+                                      ore exit for exit):""");
             String command = reader.readLine();
             if (command == null) {
                 break;
@@ -34,9 +38,10 @@ public class Main {
             switch (command.trim().toLowerCase()) {
                 case "exit" -> switcher.stopRunning();
                 case "find" -> switcher.findUser(reader);
-                case "save" -> switcher.saveUser(reader);
+                case "create" -> switcher.saveUser(reader);
                 case "delete" -> switcher.deleteUser(reader);
                 case "update" -> switcher.updateUser(reader);
+                case "show" -> switcher.showAllUsers();
                 default -> System.out.println("it's " + command + " can't to used");
             }
         }

@@ -2,18 +2,20 @@ package ru.aston.homework.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ru.aston.homework.entity.User;
+import ru.aston.homework.entity.UserEntity;
 import ru.aston.homework.factory.HibernateSessionFactory;
 
-public class UserDAOIMPL implements DAO<User> {
+import java.util.List;
+
+public class UserDAO implements DAO<UserEntity> {
 
     @Override
-    public User findById(int id) {
-        return HibernateSessionFactory.getSessionFactory().openSession().get(User.class, id);
+    public UserEntity findById(Long id) {
+        return HibernateSessionFactory.getSessionFactory().openSession().get(UserEntity.class, id);
     }
 
     @Override
-    public void save(User user) {
+    public void save(UserEntity user) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
@@ -22,7 +24,7 @@ public class UserDAOIMPL implements DAO<User> {
     }
 
     @Override
-    public void update(User user) {
+    public void update(UserEntity user) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(user);
@@ -31,11 +33,17 @@ public class UserDAOIMPL implements DAO<User> {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(UserEntity user) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(user);
         transaction.commit();
         session.close();
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        return (List<UserEntity>) HibernateSessionFactory.
+                getSessionFactory().openSession().createQuery("From UserEntity").list();
     }
 }

@@ -2,13 +2,15 @@ package ru.aston.homework.switcher;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ru.aston.homework.dao.UserDAOIMPL;
-import ru.aston.homework.entity.User;
+import ru.aston.homework.dao.UserDAO;
+import ru.aston.homework.entity.UserDTO;
+import ru.aston.homework.service.MapperUserDtoToUserEntity;
 import ru.aston.homework.service.Service;
-import ru.aston.homework.service.UserServiceIMPL;
+import ru.aston.homework.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 @NoArgsConstructor
 public class Switcher {
@@ -16,24 +18,25 @@ public class Switcher {
     @Getter
     private boolean running = true;
 
-    private final Service<User> service = new UserServiceIMPL(new UserDAOIMPL());
+    private final Service<UserDTO> service = new UserService(
+            new UserDAO(), new MapperUserDtoToUserEntity());
 
     public void stopRunning() {
         running = false;
         System.out.println("exit from program");
     }
 
-    public User findUser(BufferedReader reader) throws IOException {
+    public UserDTO findUser(BufferedReader reader) throws IOException {
         System.out.println("input id from user: ");
-        int id = Integer.parseInt(reader.readLine());
-        User user = service.findUser(id);
+        Long id = Long.parseLong(reader.readLine());
+        UserDTO user = service.findByID(id);
         System.out.println("Found: " + user);
         return user;
     }
 
     public void deleteUser(BufferedReader reader) throws IOException {
         System.out.print("For DELETE ");
-        User user = findUser(reader);
+        UserDTO user = findUser(reader);
         if (user != null) {
             service.deleteUser(user);
             System.out.println("User is terminated");
@@ -44,7 +47,7 @@ public class Switcher {
 
     public void updateUser(BufferedReader reader) throws IOException {
         System.out.print("For UPDATE ");
-        User user = findUser(reader);
+        UserDTO user = findUser(reader);
         if (user == null) {
             System.out.println("User not found");
         } else {
@@ -55,8 +58,13 @@ public class Switcher {
         }
     }
 
+    public void showAllUsers() {
+        List<UserDTO> users = service.findAll();
+        users.forEach(System.out::println);
+    }
+
     public void saveUser(BufferedReader reader) throws IOException {
-        User user = new User(setName(reader), setEmail(reader), setAge(reader));
+        UserDTO user = new UserDTO(setName(reader), setEmail(reader), setAge(reader));
         service.saveUser(user);
         System.out.println("Saved: " + user);
     }

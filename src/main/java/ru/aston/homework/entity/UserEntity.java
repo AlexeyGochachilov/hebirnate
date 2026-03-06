@@ -1,28 +1,27 @@
 package ru.aston.homework.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
 @Getter
 @ToString
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Setter
+    private Long id;
 
     @Setter
     private String name;
@@ -36,11 +35,7 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public User(String name, String email, int age) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
+    public UserEntity() {
         createdAt = LocalDateTime.now();
-        System.out.println("User: " + this.toString() + " created");
     }
 }

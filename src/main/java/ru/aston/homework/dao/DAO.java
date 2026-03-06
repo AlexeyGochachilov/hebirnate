@@ -1,12 +1,16 @@
 package ru.aston.homework.dao;
 
+import java.util.List;
+
 public interface DAO<T> {
 
-    T findById(int id);
+    T findById(Long id);
 
     void save(T t);
 
     void update(T t);
 
     void delete(T t);
+
+    List<T> findAll();
 }
